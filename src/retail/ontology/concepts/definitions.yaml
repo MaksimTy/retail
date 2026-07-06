@@ -1,0 +1,37 @@
+# Business concept definitions for the retail domain
+
+Customer:
+  description: A customer who makes purchases
+  attributes:
+    - customer_id: Unique identifier for the customer
+    - country: Country where the customer resides
+  keys:
+    - customer_key: Primary key (surrogate key)
+  relationships:
+    - purchases: A customer can make multiple purchases (one-to-many to FactSales)
+
+Product:
+  description: A product that can be purchased
+  attributes:
+    - stock_code: Unique code for the product
+    - description: Description of the product
+    - unit_price: Price per unit of the product
+  keys:
+    - product_key: Primary key (surrogate key)
+  relationships:
+    - sales: A product can be sold multiple times (one-to-many to FactSales)
+
+Order:
+  description: A customer order (invoice)
+  attributes:
+    - invoice_no: Unique identifier for the order
+    - invoice_date: Date and time when the order was placed
+  keys:
+    - sale_key: Primary key (surrogate key) - note: we use sale_key as the order identifier in the fact table
+  relationships:
+    - customer: Each order is associated with one customer (many-to-one to Customer)
+    - product: Each order line item is associated with one product (many-to-one to Product)
+    - line_items: An order can have multiple line items (one-to-many from Order to FactSales, but note that in our model each row in FactSales is a line item)
+
+# Note: In our dimensional model, the FactSales table represents individual line items.
+# Therefore, an "Order" (invoice) can consist of multiple rows in FactSales with the same invoice_no.
