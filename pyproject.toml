@@ -1,9 +1,30 @@
 [project]
 name = "retail"
 version = "0.1.0"
-description = "Add your description here"
+description = "AI agent with OAG for retail analytics"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "anthropic>==0.0.0",
+    "openai>==1.0.0",
+    "sqlalchemy",
+    "duckdb",
     "ucimlrepo>=0.0.7",
+    "duckdb",
+    "polars",
+    "sqlalchemy",
+    "pydantic",
+    "pyyaml",
+    "typer",
+    "rich",
 ]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
