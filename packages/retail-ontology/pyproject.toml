@@ -1,0 +1,66 @@
+[project]
+name = "retail-retail-ontology"
+version = "0.1.0"
+description = "Core library for Retail Ontology Platform - concepts, metrics, relationships, query engine, and data adapters"
+readme = "README.md"
+license = {file = "../LICENSE"}
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.7",
+    "pydantic-settings>=2.3",
+    "pyyaml>=6.0",
+    "networkx>=3.2",
+    "instructor>=1.3",
+    "openai>=1.30",
+    "duckdb>=1.0",
+    "loguru>=0.7",
+    "tenacity>=8.2",
+    "pydantic-extra-types>=2.7",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2",
+    "pytest-asyncio>=0.23",
+    "pytest-cov>=5.0",
+    "hypothesis>=6.92",
+    "ruff>=0.5",
+    "mypy>=1.10",
+]
+postgres = ["asyncpg>=0.29", "psycopg2-binary>=2.9"]
+snowflake = ["snowflake-connector-python>=3.9"]
+all = ["postgres", "snowflake"]
+
+[project.scripts]
+retail-download = "retail_ontology.scripts.download_data:main"
+retail-build = "retail_ontology.scripts.build_warehouse:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv.sources]
+retail-ontology = {workspace = true}
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+strict_equality = true
+show_error_codes = true
+pretty = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
