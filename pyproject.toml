@@ -40,8 +40,10 @@ dev =  [
 [tool.ruff]
 target-version = "py311"
 line-length = 100
-select = ["E", "F", "I", "UP", "W", "C90", "ANN", "T20", "TCH", "B", "ARG", "PTH", "ERA", "PL", "TRY", "NPY", "RUF", "SIM", "TID", "QF", "TD", "INT", "RET", "FLY", "PERF", "ISC", "ICN", "PIE", "PT", "REF", "RSE", "SLF", "SLOT", "TRY", "UP", "YTT"]
-ignore = ["ANN101", "ANN102", "ANN201", "ANN202", "ANN204", "ANN401", "ARG001", "ARG002", "B008", "C901", "D100", "D101", "D102", "D103", "D104", "D105", "D107", "ERA001", "EXE005", "FBT001", "FBT002", "FBT003", "INP001", "ISC001", "ISC002", "ISC003", "PD011", "PERF401", "PIE796", "PLR0913", "PLW0602", "PLW0603", "PT004", "PT006", "PT012", "PT015", "RUF001", "RUF012", "RUF013", "S101", "S113", "S311", "S603", "S607", "SIM103", "SIM115", "SLF001", "SLOT000", "T201", "T203", "TCH001", "TCH002", "TCH003", "TRY003", "UP006", "UP007", "UP035", "YTT101", "YTT102"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "W", "C90", "ANN", "T20", "TC", "B", "ARG", "PTH", "ERA", "PL", "TRY", "NPY", "RUF", "SIM", "TID", "TD", "RET", "PERF", "ISC", "ICN", "PIE", "PT"]
+ignore = ["ANN201", "ANN202", "ANN204", "ANN401", "ARG001", "ARG002", "B008", "C901", "D100", "D101", "D102", "D103", "D104", "D105", "D107", "ERA001", "EXE005", "FBT001", "FBT002", "FBT003", "INP001", "ISC001", "ISC002", "ISC003", "PD011", "PERF401", "PIE796", "PLR0913", "PLW0602", "PLW0603", "PT006", "PT012", "PT015", "RUF001", "RUF012", "RUF013", "S101", "S113", "S311", "S603", "S607", "SIM103", "SIM115", "SLF001", "T201", "T203", "TRY003", "UP006", "UP007", "UP035"]
 
 [tool.mypy]
 python_version = "3.11"

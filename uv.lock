@@ -2466,6 +2466,10 @@ name = "retail-ontology-platform"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "retail-api" },
+    { name = "retail-cli" },
+    { name = "retail-ontology" },
+    { name = "retail-telegram" },
     { name = "ucimlrepo" },
 ]
 
@@ -2486,6 +2490,10 @@ requires-dist = [
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.2" },
     { name = "pytest-asyncio", marker = "extra == 'dev'", specifier = ">=0.23" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=5.0" },
+    { name = "retail-api", editable = "packages/retail-api" },
+    { name = "retail-cli", editable = "packages/retail-cli" },
+    { name = "retail-ontology", editable = "packages/retail-ontology" },
+    { name = "retail-telegram", editable = "packages/retail-telegram" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.5" },
     { name = "ucimlrepo" },
 ]
