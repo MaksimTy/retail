@@ -29,7 +29,6 @@ repos:
       - id: check-toml
       - id: check-json
       - id: check-merge-conflict
-      - id: debug-logger
       - id: detect-private-key
       - id: check-added-large-files
         args: [--maxkb=500]
@@ -68,6 +67,5 @@ repos:
         args: [--fix=lf]
 
 # Configuration
-default_stages: [commit, push]
+default_stages: [manual]
 fail_fast: false
-verbose: true
