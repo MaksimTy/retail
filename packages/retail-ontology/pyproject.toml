@@ -3,7 +3,7 @@ name = "retail-ontology"
 version = "0.1.0"
 description = "Core library for Retail Ontology Platform - concepts, metrics, relationships, query engine, and data adapters"
 readme = "README.md"
-license = {file = "../LICENSE"}
+license = "Apache-2.0"
 requires-python = ">=3.11"
 dependencies = [
     "pydantic>=2.7",

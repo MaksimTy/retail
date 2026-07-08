@@ -3,10 +3,14 @@ name = "retail-ontology-platform"
 version = "0.1.0"
 description = "Retail Ontology Platform - Monorepo for retail-ontology, retail-cli, retail-telegram, retail-api"
 readme = "README.md"
-license = {file = "LICENSE"}
+license = "Apache-2.0"
 requires-python = ">=3.11"
 dependencies = [
     "ucimlrepo",
+    "retail-ontology",
+    "retail-cli",
+    "retail-api",
+    "retail-telegram",
 ]
 
 [tool.uv.workspace]

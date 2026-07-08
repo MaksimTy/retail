@@ -3,7 +3,7 @@ name = "retail-cli"
 version = "0.1.0"
 description = "CLI wrapper for Retail Ontology Platform"
 readme = "README.md"
-license = {file = "LICENSE"}
+license = "Apache-2.0"
 requires-python = ">=3.11"
 dependencies = [
     "retail-ontology",
