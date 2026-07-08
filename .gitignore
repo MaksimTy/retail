@@ -5,9 +5,6 @@ __pycache__/
 
 # Virtual environments
 .venv/
-venv/
-env/
-.env
 
 # UV
 .uv/
@@ -219,3 +216,5 @@ Thumbs.db
 
 # MSP
 .roo/
+
+*.zip

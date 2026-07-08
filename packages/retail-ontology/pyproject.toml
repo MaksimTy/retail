@@ -1,5 +1,5 @@
 [project]
-name = "retail-retail-ontology"
+name = "retail-ontology"
 version = "0.1.0"
 description = "Core library for Retail Ontology Platform - concepts, metrics, relationships, query engine, and data adapters"
 readme = "README.md"
