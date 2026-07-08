@@ -60,44 +60,44 @@ class RelationshipInfo:
 
 class DataAdapter(Protocol):
     """Protocol for database adapters."""
-    
+
     async def connect(self) -> None:
         """Establish connection to the database."""
         ...
-    
+
     async def disconnect(self) -> None:
         """Close database connection."""
         ...
-    
+
     async def execute(
-        self, 
-        sql: str, 
+        self,
+        sql: str,
         params: Optional[dict[str, Any]] = None
     ) -> QueryResult:
         """Execute a single query and return results."""
         ...
-    
+
     async def execute_many(
-        self, 
-        sql: str, 
+        self,
+        sql: str,
         params_list: list[dict[str, Any]]
     ) -> None:
         """Execute a query multiple times with different parameters (batch)."""
         ...
-    
+
     async def fetch_schema(self) -> SchemaInfo:
         """Fetch complete database schema information."""
         ...
-    
+
     async def health_check(self) -> bool:
         """Check if database connection is healthy."""
         ...
-    
+
     async def __aenter__(self) -> "DataAdapter":
         """Async context manager entry."""
         await self.connect()
         return self
-    
+
     async def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
         """Async context manager exit."""
         await self.disconnect()

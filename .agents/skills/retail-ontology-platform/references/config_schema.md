@@ -17,17 +17,17 @@ class Settings(BaseSettings):
         case_sensitive=False,
         extra="ignore"
     )
-    
+
     # Application
     app_name: str = "retail-ontology"
     environment: Literal["development", "staging", "production"] = "development"
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "INFO"
-    
+
     # Data Layer
     duckdb_path: Path = Path("./data/warehouse.duckdb")
     postgres_dsn: Optional[PostgresDsn] = None
     warehouse_schema: str = "retail"
-    
+
     # LLM Providers (OpenRouter is first-class)
     openrouter_api_key: str = Field(..., description="OpenRouter API key (required)")
     openrouter_base_url: str = "https://openrouter.ai/api/v1"
@@ -37,35 +37,35 @@ class Settings(BaseSettings):
         "google/gemini-1.5-flash",
         "meta-llama/llama-3.1-70b-instruct"
     ]
-    
+
     # Fallback providers
     openai_api_key: Optional[str] = None
     anthropic_api_key: Optional[str] = None
     ollama_base_url: str = "http://localhost:11434"
     llama_cpp_model_path: Optional[Path] = None
-    
+
     # LLM Settings
     default_temperature: float = 0.1
     max_tokens: int = 4096
     request_timeout: float = 60.0
     max_retries: int = 3
-    
+
     # Query Engine
     lqp_max_joins: int = 5
     lqp_max_filters: int = 10
     sql_timeout: float = 30.0
     max_rows_returned: int = 10000
-    
+
     # CLI
     cli_output_format: Literal["table", "json", "csv", "markdown"] = "table"
     cli_show_sql: bool = False
     cli_stream: bool = True
-    
+
     # Telegram
     telegram_bot_token: Optional[str] = None
     telegram_allowed_users: list[int] = Field(default_factory=list)
     telegram_session_timeout: int = 3600
-    
+
     # API
     api_host: str = "0.0.0.0"
     api_port: int = 8000
@@ -75,7 +75,7 @@ class Settings(BaseSettings):
     api_rate_limit_window: int = 60
     api_auth_enabled: bool = False
     api_auth_secret: Optional[str] = None
-    
+
     # Observability
     log_format: Literal["json", "console"] = "console"
     metrics_enabled: bool = True
@@ -83,12 +83,12 @@ class Settings(BaseSettings):
     tracing_enabled: bool = False
     tracing_endpoint: Optional[str] = None
     tracing_sample_rate: float = 0.1
-    
+
     # Data Pipeline
     data_dir: Path = Path("./data")
     uci_dataset_url: str = "https://archive.ics.uci.edu/ml/machine-learning-databases/00352/Online%20Retail.xlsx"
     warehouse_batch_size: int = 10000
-    
+
     # Development
     dev_reload: bool = True
     dev_seed_data: bool = False

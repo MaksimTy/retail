@@ -151,14 +151,14 @@ class OpenRouterProvider(LLMProvider):
     - Mistral: Large 2, Nemo, Codestral
     - Google: Gemma 2, Gemini
     - And many more...
-    
+
     Benefits:
     - Single API key for all models
     - Automatic failover/fallback
     - Usage analytics across models
     - Competitive pricing (often cheaper than direct)
     """
-    
+
     def __init__(self, api_key: str, model: str = "openai/gpt-4o-mini", **kwargs):
         self.client = OpenAI(
             base_url="https://openrouter.ai/api/v1",
@@ -169,7 +169,7 @@ class OpenRouterProvider(LLMProvider):
             }
         )
         self.model = model
-    
+
     async def complete_structured(self, prompt: str, schema: Type[BaseModel]) -> BaseModel:
         # Use instructor with OpenRouter
         return await instructor.from_openai(self.client).chat.completions.create(
@@ -270,23 +270,23 @@ class Settings(BaseSettings):
     llm_api_key: str | None = None
     llm_temperature: float = 0.1
     llm_max_tokens: int = 4096
-    
+
     # Data
     duckdb_path: str = "./data/warehouse.duckdb"
     uci_dataset_id: int = 352
-    
+
     # Adapters
     adapter_type: str = "duckdb"  # duckdb, postgres
     postgres_dsn: str | None = None
-    
+
     # Telegram
     telegram_bot_token: str | None = None
     telegram_allowed_users: list[int] = []
-    
+
     # Logging
     log_level: str = "INFO"
     log_format: str = "json"
-    
+
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 ```
 
@@ -307,7 +307,7 @@ concepts:
       - name: country
         type: string
         description: "Customer country"
-  
+
   product:
     table: dim_product
     primary_key: product_key
@@ -321,7 +321,7 @@ concepts:
         type: string
       - name: unit_price
         type: decimal
-  
+
   sale:
     table: fact_sales
     primary_key: sale_key
@@ -356,7 +356,7 @@ metrics:
     grain: [customer_key, product_key, invoice_date]
     format: "currency"
     description: "Sum of all line totals"
-  
+
   avg_order_value:
     name: "Average Order Value"
     expression: "AVG(order_total)"
@@ -365,13 +365,13 @@ metrics:
     description: "Average revenue per invoice"
     dependencies:
       - order_total: "SUM(fact_sales.line_total) GROUP BY invoice_no"
-  
+
   unique_customers:
     name: "Unique Customers"
     expression: "COUNT(DISTINCT dim_customer.customer_key)"
     grain: []
     format: "number"
-  
+
   repeat_rate:
     name: "Repeat Customer Rate"
     expression: "repeat_customers / total_customers"
@@ -394,7 +394,7 @@ metrics:
 ##### ETL Pipeline Steps
 1. **Download**: `ucimlrepo.fetch_ucirepo(id=352)` → pandas DataFrame
 2. **Validate**: Check schema, required columns, data types
-3. **Clean**: 
+3. **Clean**:
    - Remove rows with null CustomerID
    - Handle negative quantities (returns) - separate fact table or flag
    - Standardize country names
@@ -422,7 +422,7 @@ class DataAdapter(Protocol):
     async def execute_many(self, sql: str, params_list: list[dict]) -> None: ...
     async def fetch_schema(self) -> SchemaInfo: ...
     async def health_check(self) -> bool: ...
-    
+
     # Context manager support
     async def __aenter__(self) -> "DataAdapter": ...
     async def __aexit__(self, *args) -> None: ...
@@ -446,14 +446,14 @@ class DataAdapter(Protocol):
 ```python
 class OpenRouterProvider(LLMProvider):
     """First-class OpenRouter support with model routing."""
-    
+
     MODEL_TIERS = {
         "cheap": "openai/gpt-4o-mini",
         "balanced": "anthropic/claude-3.5-haiku",
         "premium": "openai/gpt-4o",
         "local_fallback": "ollama/llama3.1:8b",
     }
-    
+
     def __init__(self, api_key: str, model: str = "openai/gpt-4o-mini", **kwargs):
         self.client = OpenAI(
             base_url="https://openrouter.ai/api/v1",
@@ -465,7 +465,7 @@ class OpenRouterProvider(LLMProvider):
         )
         self.model = model
         self.structured_client = instructor.from_openai(self.client)
-    
+
     async def complete_structured(self, prompt: str, schema: Type[BaseModel]) -> BaseModel:
         return await self.structured_client.chat.completions.create(
             model=self.model,
@@ -474,7 +474,7 @@ class OpenRouterProvider(LLMProvider):
             temperature=0.1,
             max_tokens=4096,
         )
-    
+
     async def complete_with_fallback(self, prompt: str, schema: Type[BaseModel]) -> BaseModel:
         """Try primary model, fallback to cheaper/local on failure."""
         for tier in ["cheap", "balanced", "local_fallback"]:
@@ -542,13 +542,13 @@ class LogicalQueryPlan:
     dimensions: list[DimensionRef]     # Group by what
     filters: list[FilterCondition]     # Where conditions
     grain: list[str]                   # Grain of the query
-    
+
     # Derived
     required_tables: set[str]          # Tables needed
     required_joins: list[JoinPath]     # Join paths
     order_by: list[OrderBy] | None
     limit: int | None
-    
+
     # Metadata
     confidence: float                  # 0-1
     explanation: str                   # Human-readable
@@ -584,7 +584,7 @@ examples:
       metrics: ["total_revenue"]
       dimensions: [{concept: "customer", attribute: "country"}]
       filters: []
-  
+
   - question: "Top 10 products by revenue in UK"
     lqp:
       metrics: ["total_revenue"]
@@ -592,7 +592,7 @@ examples:
       filters: [{concept: "customer", attribute: "country", operator: "=", value: "United Kingdom"}]
       order_by: [{metric: "total_revenue", direction: "desc"}]
       limit: 10
-  
+
   - question: "Revenue trend over time"
     lqp:
       metrics: ["total_revenue"]
@@ -616,31 +616,31 @@ class OntologyAgent:
     def __init__(self, engine: OntologyEngine):
         self.engine = engine
         self.conversation = ConversationManager()
-    
+
     async def ask(self, question: str) -> QueryResult:
         # 1. Add to conversation history
         self.conversation.add_user(question)
-        
+
         # 2. Translate NL → LQP
         lqp = await self.engine.translate(question, self.conversation.context)
-        
+
         # 3. Validate LQP
         validation = self.engine.validate(lqp)
         if not validation.valid:
             return QueryResult(error=validation.errors)
-        
+
         # 4. Plan → Physical SQL
         sql = self.engine.plan(lqp)
-        
+
         # 5. Execute
         data = await self.engine.execute(sql)
-        
+
         # 6. Format answer
         answer = self.engine.format_answer(lqp, data)
-        
+
         # 7. Add to conversation
         self.conversation.add_assistant(answer, sql=sql, lqp=lqp)
-        
+
         return QueryResult(answer=answer, sql=sql, lqp=lqp, data=data)
 ```
 

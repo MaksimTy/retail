@@ -15,7 +15,7 @@ retail-ontology/          # Core library (pip installable)
 ├── pyproject.toml
 └── src/retail_ontology/
     ├── concepts/         # Concept registry + YAML definitions
-    ├── metrics/          # Metric registry + YAML definitions  
+    ├── metrics/          # Metric registry + YAML definitions
     ├── relationships/    # NetworkX graph + join paths
     ├── query_engine/     # NL→LQP→SQL pipeline
     ├── adapters/         # DuckDB, Postgres, Snowflake adapters
@@ -77,19 +77,19 @@ class Settings(BaseSettings):
     llm_api_key: str | None = None
     llm_temperature: float = 0.1
     llm_max_tokens: int = 4096
-    
+
     # Data
     duckdb_path: str = "./data/warehouse.duckdb"
     uci_dataset_id: int = 352
-    
+
     # Adapters
     adapter_type: str = "duckdb"
     postgres_dsn: str | None = None
-    
+
     # Telegram
     telegram_bot_token: str | None = None
     telegram_allowed_users: list[int] = []
-    
+
     # Logging
     log_level: str = "INFO"
     log_format: str = "json"

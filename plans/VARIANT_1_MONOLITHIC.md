@@ -197,27 +197,27 @@ class OntologyAgent:
         self.query_builder = QueryBuilder(settings)
         self.repository = DataRepository(settings)
         self.conversation = ConversationManager()
-    
+
     async def ask(self, question: str) -> AgentResponse:
         # 1. Build context from conversation
         context = self.conversation.get_context()
-        
+
         # 2. Translate NL to SQL
         sql = await self.query_builder.translate(question, context)
-        
+
         # 3. Validate SQL
         if not self.query_builder.validate(sql):
             return AgentResponse(error="Invalid query generated")
-        
+
         # 4. Execute
         results = await self.repository.execute(sql)
-        
+
         # 5. Format answer
         answer = self.format_answer(question, sql, results)
-        
+
         # 6. Update conversation
         self.conversation.add(question, answer, sql)
-        
+
         return AgentResponse(answer=answer, sql=sql, data=results)
 ```
 
