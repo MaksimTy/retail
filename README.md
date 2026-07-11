@@ -11,6 +11,16 @@ This monorepo contains four packages:
 - **retail-telegram** - Telegram bot wrapper (python-telegram-bot)
 - **retail-api** - REST API wrapper (FastAPI + Uvicorn)
 
+## Documentation
+
+- [Architecture](docs/ARCHITECTURE.md) - Detailed architecture documentation
+- [API Reference](docs/API.md) - Core library API documentation
+- [Deployment Guide](docs/DEPLOYMENT.md) - Deployment instructions (Docker, Kubernetes, Serverless)
+- [Ontology Guide](docs/ONTOLOGY_GUIDE.md) - How to define concepts and metrics
+- [Development Guide](docs/DEVELOPMENT.md) - Development workflow and best practices
+- [Implementation Plan](docs/IMPLEMENTATION_PLAN.md) - Detailed implementation roadmap
+- [Questions & Clarifications](docs/QUESTIONS.md) - Open questions for the project
+
 ## Quick Start
 
 ```bash
@@ -64,6 +74,14 @@ retail-ontology-platform/
 │   ├── retail-cli/          # CLI wrapper
 │   ├── retail-telegram/     # Telegram bot wrapper
 │   └── retail-api/          # REST API wrapper
+├── docs/                    # Documentation
+│   ├── ARCHITECTURE.md      # Architecture documentation
+│   ├── API.md               # API reference
+│   ├── DEPLOYMENT.md        # Deployment guide
+│   ├── ONTOLOGY_GUIDE.md    # Ontology definition guide
+│   ├── DEVELOPMENT.md       # Development guide
+│   ├── IMPLEMENTATION_PLAN.md # Implementation roadmap
+│   └── QUESTIONS.md         # Open questions
 ├── pyproject.toml           # Root workspace config
 ├── Makefile                 # Development commands
 ├── .pre-commit-config.yaml  # Pre-commit hooks
@@ -88,7 +106,13 @@ Optional:
 - `TELEGRAM_BOT_TOKEN` - Telegram bot token
 - `API_HOST`, `API_PORT` - API server configuration
 
+## Package Documentation
+
+- [retail-ontology](packages/retail-ontology/README.md) - Core library
+- [retail-cli](packages/retail-cli/README.md) - CLI wrapper
+- [retail-telegram](packages/retail-telegram/README.md) - Telegram bot
+- [retail-api](packages/retail-api/README.md) - REST API
+
 ## License
 
-MIT
-# test
+Apache-2.0
